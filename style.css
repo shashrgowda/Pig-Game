@@ -2,6 +2,24 @@
 *** GENERAL
 **********************************************/
 
+.final-score {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 520px;
+    color: #555;
+    font-size: 18px;
+    font-family: 'Lato';
+    text-align: center;
+    padding: 10px;
+    width: 185px;
+    text-transform: uppercase;
+}
+
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +34,7 @@
 }
 
 body {
-    background-image: linear-gradient(rgba(62, 20, 20, 0.4), rgba(62, 20, 20, 0.4)), url(../media/back.jpg);
+    background-image: linear-gradient(rgba(62, 20, 20, 0.4), rgba(62, 20, 20, 0.4)), url(back.jpg);
     background-size: cover;
     background-position: center;
     font-family: Lato;

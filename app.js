@@ -1,4 +1,4 @@
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, previousDiceRoll, winningScore;
 
 init();
 
@@ -7,22 +7,30 @@ document.querySelector('.btn-roll').addEventListener('click', () => {
     if(gamePlaying){
         var dice = Math.floor(Math.random() * 6) + 1;
     
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = '../media/dice-' + dice + '.png';
-    
-    if(dice !== 1){
+        var diceDOM = document.querySelector('.dice');
+        diceDOM.style.display = 'block';
+        diceDOM.src = 'dice-' + dice + '.png';
+        
+        
+        
+        if(dice === 6 && previousDiceRoll === 6){
+            scores[activePlayer] = 0;
+            document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+            nextPlayer();
+            
+        } else if(dice !== 1){
         
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
         
-    } else {
+        } else {
         
         nextPlayer();
         
-    }
+        }
+        previousDiceRoll = dice;
         
-}
+    }
 
     
 });
@@ -31,9 +39,18 @@ document.querySelector('.btn-hold').addEventListener('click', () => {
     if(gamePlaying){
     scores[activePlayer] += roundScore;
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        
+        var input = document.querySelector('.final-score').value;
+        
+        if(input){
+            winningScore = input;
+        } else {
+            winningScore = 100;
+        }
+   
     
     
-     if(scores[activePlayer] >= 100){
+     if(scores[activePlayer] >= winningScore){
         document.querySelector('.dice').style.display = 'none';
         document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -65,6 +82,7 @@ nextPlayer = () => {
 
 
 function init() {
+    
     scores = [0,0];
     roundScore = 0;
     activePlayer = 0;
